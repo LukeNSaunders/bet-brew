@@ -108,4 +108,3 @@ Interface outlining the results of calculations:
 ### Input Types
 
 Detailed descriptions and fields for input types (`EVInput`, `ROIInput`, `BookmakerMarginInput`, `AdjustedProbabilityInput`, `AdjustedEVInput`, `AdjustedROIInput`) should be provided.
-

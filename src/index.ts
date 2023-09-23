@@ -1,4 +1,4 @@
-import { BrewResult, EVInput, ROIInput, BookmakerMarginInput, AdjustedEVInput, AdjustedProbabilityInput, AdjustedROIInput } from './types/types.betBrew';
+import { BrewResult, EVInput, ROIInput, BookmakerMarginInput, AdjustedEVInput, AdjustedProbabilityInput, AdjustedROIInput } from './types/type.betBrew';
 
 class BetBrewClass {
     private validateNumber(input: number, name: string, shouldBePositive: boolean = false): void {
@@ -70,4 +70,4 @@ const betBrew = () => {
     return new BetBrewClass();
 };
 
-export { betBrew, BrewResult };
+export { betBrew, BrewResult, EVInput, ROIInput, AdjustedEVInput, AdjustedProbabilityInput, AdjustedROIInput, BookmakerMarginInput };
