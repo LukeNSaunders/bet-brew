@@ -38,14 +38,6 @@ Core class containing methods for various betting utilities.
 
 #### Methods
 
-- **`validateNumber(input, name, shouldBePositive?)`**
-  
-  Validates if the input is a number and optionally, if it should be positive.
-
-- **`validateArray(input, name)`**
-  
-  Validates if the input is an array.
-
 - **`calculateEV(stakedAmount, oddsTaken, startingPrice)`**
   
   Calculates the Expected Value (EV) of a bet.

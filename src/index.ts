@@ -1,10 +1,4 @@
-interface BrewResult {
-    margin: number;
-    rawEV: number;
-    rawROI: number;
-    adjustedEV: number;
-    adjustedROI: number;
-}
+import { BrewResult, EVInput, ROIInput, BookmakerMarginInput, AdjustedEVInput, AdjustedProbabilityInput, AdjustedROIInput } from './types/types.betBrew';
 
 class BetBrewClass {
     private validateNumber(input: number, name: string, shouldBePositive: boolean = false): void {
@@ -22,103 +16,58 @@ class BetBrewClass {
         }
     }
 
-    public calculateEV(stakedAmount: number, oddsTaken: number, startingPrice: number): number {
-        this.validateNumber(stakedAmount, 'stakedAmount', true);
-        this.validateNumber(oddsTaken, 'oddsTaken', true);
-        this.validateNumber(startingPrice, 'startingPrice', true);
+    public calculateEV(input: EVInput): number {
+        this.validateNumber(input.stakedAmount, 'stakedAmount', true);
+        this.validateNumber(input.oddsTaken, 'oddsTaken', true);
+        this.validateNumber(input.startingPrice, 'startingPrice', true);
 
-        const impliedProbabilitySP: number = 1 / startingPrice;
-        return stakedAmount * (impliedProbabilitySP * (oddsTaken - 1) - (1 - impliedProbabilitySP));
+        const impliedProbabilitySP: number = 1 / input.startingPrice;
+        return input.stakedAmount * (impliedProbabilitySP * (input.oddsTaken - 1) - (1 - impliedProbabilitySP));
     }
 
-    public calculateROI(stakedAmount: number, oddsTaken: number, startingPrice: number): number {
-        const ev: number = this.calculateEV(stakedAmount, oddsTaken, startingPrice);
-        return (ev / stakedAmount) * 100;
+    public calculateROI(input: ROIInput): number {
+        const ev: number = this.calculateEV(input);
+        return (ev / input.stakedAmount) * 100;
     }
 
-    public calculateBookmakerMargin(allOdds: number[]): number {
-        this.validateArray(allOdds, 'allOdds');
+    public calculateBookmakerMargin(input: BookmakerMarginInput): number {
+        this.validateArray(input.allOdds, 'allOdds');
 
         let totalImpliedProbability: number = 0;
-        for (let odds of allOdds) {
+        for (let odds of input.allOdds) {
             this.validateNumber(odds, 'odds in allOdds array', true);
             totalImpliedProbability += (1 / odds) * 100;
         }
         return totalImpliedProbability - 100;
     }
 
-    public calculateAdjustedProbability(startingPrice: number, allOdds: number[]): number {
-        this.validateNumber(startingPrice, 'startingPrice', true);
-        this.validateArray(allOdds, 'allOdds');
+    public calculateAdjustedProbability(input: AdjustedProbabilityInput): number {
+        this.validateNumber(input.startingPrice, 'startingPrice', true);
+        this.validateArray(input.allOdds, 'allOdds');
 
-        const margin: number = this.calculateBookmakerMargin(allOdds);
-        const rawProbability: number = 1 / startingPrice;
+        const margin: number = this.calculateBookmakerMargin(input);
+        const rawProbability: number = 1 / input.startingPrice;
         return rawProbability * (100 / (100 + margin));
     }
 
-    public calculateAdjustedEV(stakedAmount: number, oddsTaken: number, startingPrice: number, allOdds: number[]): number {
-        this.validateNumber(stakedAmount, 'stakedAmount', true);
-        this.validateNumber(oddsTaken, 'oddsTaken', true);
-        this.validateNumber(startingPrice, 'startingPrice', true);
-        this.validateArray(allOdds, 'allOdds');
+    public calculateAdjustedEV(input: AdjustedEVInput): number {
+        this.validateNumber(input.stakedAmount, 'stakedAmount', true);
+        this.validateNumber(input.oddsTaken, 'oddsTaken', true);
+        this.validateNumber(input.startingPrice, 'startingPrice', true);
+        this.validateArray(input.allOdds, 'allOdds');
 
-        const adjustedProbability: number = this.calculateAdjustedProbability(startingPrice, allOdds);
-        return stakedAmount * (adjustedProbability * (oddsTaken - 1) - (1 - adjustedProbability));
+        const adjustedProbability: number = this.calculateAdjustedProbability(input);
+        return input.stakedAmount * (adjustedProbability * (input.oddsTaken - 1) - (1 - adjustedProbability));
     }
 
-    public calculateAdjustedROI(stakedAmount: number, oddsTaken: number, startingPrice: number, allOdds: number[]): number {
-        const adjustedEv: number = this.calculateAdjustedEV(stakedAmount, oddsTaken, startingPrice, allOdds);
-        return (adjustedEv / stakedAmount) * 100;
-    }
-
-    public decimalToFractional(decimalOdds: number): string {
-        this.validateNumber(decimalOdds, 'decimalOdds', true);
-        const numerator = decimalOdds - 1;
-        const denominator = 1;
-        // Simplification can be added here for cleaner fractions
-        return `${numerator}/${denominator}`;
-    }
-
-    public fractionalToDecimal(fraction: string): number {
-        const [numerator, denominator] = fraction.split('/').map(Number);
-        return numerator / denominator + 1;
-    }
-
-    public decimalToMoneyline(decimalOdds: number): number {
-        this.validateNumber(decimalOdds, 'decimalOdds', true);
-        if (decimalOdds >= 2) {
-            return +(decimalOdds - 1) * 100;
-        } else {
-            return -100 / (decimalOdds - 1);
-        }
-    }
-
-    public moneylineToDecimal(moneyline: number): number {
-        this.validateNumber(moneyline, 'moneyline');
-        if (moneyline > 0) {
-            return moneyline / 100 + 1;
-        } else {
-            return 1 - 100 / moneyline;
-        }
-    }
-    public calculateCLV(betOdds: number, closingOdds: number): number {
-        this.validateNumber(betOdds, 'betOdds', true);
-        this.validateNumber(closingOdds, 'closingOdds', true);
-
-        return (betOdds / closingOdds - 1) * 100;
+    public calculateAdjustedROI(input: AdjustedROIInput): number {
+        const adjustedEv: number = this.calculateAdjustedEV(input);
+        return (adjustedEv / input.stakedAmount) * 100;
     }
 }
 
 const betBrew = () => {
     return new BetBrewClass();
 };
-
-const calculator = betBrew().decimalToFractional(2.5);
-
-console.log(calculator);
-
-
-const clvValue = betBrew().calculateCLV(2.10, 2.00); 
-console.log(clvValue); 
 
 export { betBrew, BrewResult };
