@@ -111,5 +111,3 @@ Detailed descriptions and fields for input types (`EVInput`, `ROIInput`, `Bookma
 [MIT](LICENSE)
 
 ```
-
-```
