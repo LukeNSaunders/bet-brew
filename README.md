@@ -10,7 +10,6 @@ BetBrew provides a suite of utilities designed to aid bettors in various betting
     -   [BetBrewClass](#betbrewclass)
     -   [BrewResult](#brewresult)
     -   [Input Types](#input-types)
--   [License](#license)
 
 ## Installation
 
@@ -110,10 +109,3 @@ Interface outlining the results of calculations:
 
 Detailed descriptions and fields for input types (`EVInput`, `ROIInput`, `BookmakerMarginInput`, `AdjustedProbabilityInput`, `AdjustedEVInput`, `AdjustedROIInput`) should be provided.
 
-## License
-
-[MIT](LICENSE)
-
-```
-
-```
