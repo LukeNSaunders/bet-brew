@@ -99,16 +99,51 @@ Core class containing methods for various betting utilities.
 -   **`decimalToMoneyline(decimalOdds: number)`**: Converts decimal odds to moneyline format.
 -   **`moneylineToDecimal(moneyline: number)`**: Converts moneyline odds to decimal format.
 
-### `BrewResult`
+### Input Types
+
+#### `EVInput`
+
+Used for calculating the Expected Value (EV) of a bet.
+
+-   `stakedAmount`: The amount of money staked on the bet. (Type: `number`)
+-   `oddsTaken`: The odds that were taken when the bet was placed. (Type: `number`)
+-   `startingPrice`: The starting price or odds of the bet. (Type: `number`)
+
+#### `ROIInput`
+
+Used for calculating the Return on Investment (ROI) of a bet. Extends from `EVInput`.
+
+#### `BookmakerMarginInput`
+
+Used for calculating the margin of a bookmaker based on provided odds.
+
+-   `allOdds`: An array of all odds that are being considered. (Type: `number[]`)
+
+#### `AdjustedProbabilityInput`
+
+Used for calculating the adjusted probability, accounting for the bookmaker's margin.
+
+-   `startingPrice`: The starting price or odds of the bet. (Type: `number`)
+-   `allOdds`: An array of all odds that are being considered. (Type: `number[]`)
+
+#### `AdjustedEVInput`
+
+Used for calculating the adjusted Expected Value (EV) of a bet.
+
+-   Inherits fields from both `EVInput` and `BookmakerMarginInput`.
+
+#### `AdjustedROIInput`
+
+Used for calculating the adjusted Return on Investment (ROI) of a bet.
+
+-   Inherits all fields from `AdjustedEVInput`.
+
+### BrewResult
 
 Interface outlining the results of calculations:
 
--   `margin`: Bookmaker's margin in percentage.
--   `rawEV`: Raw Expected Value of a bet.
--   `rawROI`: Raw Return on Investment of a bet in percentage.
--   `adjustedEV`: Adjusted Expected Value of a bet.
--   `adjustedROI`: Adjusted Return on Investment of a bet in percentage.
-
-### Input Types
-
-Detailed descriptions and fields for input types (`EVInput`, `ROIInput`, `BookmakerMarginInput`, `AdjustedProbabilityInput`, `AdjustedEVInput`, `AdjustedROIInput`) should be provided.
+-   `margin`: Bookmaker's margin in percentage. (Type: `number`)
+-   `rawEV`: Raw Expected Value of a bet. (Type: `number`)
+-   `rawROI`: Raw Return on Investment of a bet in percentage. (Type: `number`)
+-   `adjustedEV`: Adjusted Expected Value of a bet. (Type: `number`)
+-   `adjustedROI`: Adjusted Return on Investment of a bet in percentage. (Type: `number`)
