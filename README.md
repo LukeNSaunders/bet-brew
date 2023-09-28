@@ -1,6 +1,6 @@
-# BetBrew
+# Bet-Brew
 
-BetBrew provides a suite of utilities designed to aid bettors in various betting and trading strategies.
+Bet-Brew is an npm package that provides a suite of utilities designed to aid bettors in various betting and trading strategies.
 
 ## Table of Contents
 
