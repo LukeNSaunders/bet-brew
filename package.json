@@ -1,6 +1,6 @@
 {
     "name": "bet-brew",
-    "version": "2.1.2",
+    "version": "2.1.3",
     "description": "A betting tools package for various odds and probability calculations.",
     "main": "./dist/index.js",
     "types": "./dist/index.d.ts",
@@ -8,7 +8,6 @@
         "build": "tsc",
         "test": "echo \"No tests specified\"",
         "prepublishOnly": "npm run build"
-
     },
     "keywords": [
         "betting",
@@ -18,6 +17,14 @@
         "ROI",
         "EV"
     ],
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/LukeNSaunders/bet-brew"
+    },
+    "bugs": {
+        "url": "https://github.com/LukeNSaunders/bet-brew/issues"
+    },
+    "homepage": "https://github.com/LukeNSaunders/bet-brew/blob/master/README.md",
     "author": "Luke Saunders",
     "license": "ISC",
     "devDependencies": {
