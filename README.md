@@ -94,7 +94,7 @@ Core class containing methods for various betting utilities.
 -   **`calculateAdjustedProbability(input: AdjustedProbabilityInput)`**: Calculates the adjusted probability accounting for the bookmaker's margin.
 -   **`calculateAdjustedEV(input: AdjustedEVInput)`**: Calculates the adjusted Expected Value (EV) of a bet.
 -   **`calculateAdjustedROI(input: AdjustedROIInput)`**: Calculates the adjusted Return on Investment (ROI) of a bet.
--   **`calculatePnL(input: PnLInput)`**: Calculates profit and total return of a bet.
+-   **`calculatePnL(input: PnlInput)`**: Calculates profit and total return of a bet.
 -   **`decimalToFractional(decimalOdds: number)`**: Converts decimal odds to fractional format.
 -   **`fractionalToDecimal(fraction: string)`**: Converts fractional odds to decimal format.
 -   **`decimalToMoneyline(decimalOdds: number)`**: Converts decimal odds to moneyline format.
@@ -140,7 +140,7 @@ Used for calculating the adjusted Return on Investment (ROI) of a bet.
 
 -   Inherits all fields from `AdjustedEVInput`.
 
-#### `PnLInput`
+#### `PnlInput`
 
 Used for calculating the profit and total return of a bet.
 
