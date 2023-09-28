@@ -1,4 +1,4 @@
-import { EVInput, ROIInput, BookmakerMarginInput, AdjustedEVInput, AdjustedProbabilityInput, AdjustedROIInput, PnlInput } from './types/type.betBrew';
+import { EVInput, ROIInput, BookmakerMarginInput, AdjustedEVInput, AdjustedProbabilityInput, AdjustedROIInput, PnlInput, KellyBetInput } from './types/type.betBrew';
 
 class BetBrewClass {
     private validateNumber(input: number, name: string, shouldBePositive: boolean = false): void {
@@ -19,6 +19,13 @@ class BetBrewClass {
         if (!Array.isArray(input)) {
             throw new TypeError(`${name} must be an array.`);
         }
+    }
+
+    private kellyCriterion(bookmakerOdds: number, bettorEstimatedProbability: number): number {
+        this.validateNumber(bookmakerOdds, 'odds taken');
+        this.validateNumber(bettorEstimatedProbability, 'bettor estimated probability');
+
+        return (bookmakerOdds * bettorEstimatedProbability - 1) / (bookmakerOdds - 1);
     }
 
     public calculateEV(input: EVInput): number {
@@ -70,7 +77,7 @@ class BetBrewClass {
         return (adjustedEv / input.stakedAmount) * 100;
     }
 
-    public calculatePnL(input: PnlInput): any {
+    public calculatePnL(input: PnlInput): { profit: number; totalReturn: number } {
         this.validateNumber(input.oddsTaken, 'odds');
         this.validateNumber(input.stakedAmount, 'staked amount');
 
@@ -112,6 +119,22 @@ class BetBrewClass {
         } else {
             return 1 - 100 / moneyline;
         }
+    }
+
+    public calculateKellyBet(input: KellyBetInput): string | { kellyBetAmount: number; fractionalAmount: number } {
+        this.validateNumber(input.oddsTaken, 'odds taken', true);
+        this.validateNumber(input.bankroll, 'bankroll', true);
+        this.validateNumber(input.probability, 'probability', true);
+
+        const kellyFraction: number = this.kellyCriterion(input.oddsTaken, input.probability);
+        const kellyBetAmount: number = input.bankroll * kellyFraction;
+
+        if (kellyBetAmount < 0) return `Not optimal to bet, change parameters. Suggested bet amount of bankroll: ${kellyBetAmount.toFixed(2)}`;
+
+        return {
+            kellyBetAmount: Number(kellyBetAmount.toFixed()),
+            fractionalAmount: Number(kellyFraction.toFixed(3)),
+        };
     }
 }
 
