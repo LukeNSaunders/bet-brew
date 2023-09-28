@@ -95,6 +95,7 @@ Core class containing methods for various betting utilities.
 -   **`calculateAdjustedEV(input: AdjustedEVInput)`**: Calculates the adjusted Expected Value (EV) of a bet.
 -   **`calculateAdjustedROI(input: AdjustedROIInput)`**: Calculates the adjusted Return on Investment (ROI) of a bet.
 -   **`calculatePnL(input: PnlInput)`**: Calculates profit and total return of a bet.
+-   **`calculateKellyBet(input: KellyBetInput)`**: Calculates the optimal bet amount using the Kelly criterion, returns the suggested bet amount and the Kelly fraction.
 -   **`decimalToFractional(decimalOdds: number)`**: Converts decimal odds to fractional format.
 -   **`fractionalToDecimal(fraction: string)`**: Converts fractional odds to decimal format.
 -   **`decimalToMoneyline(decimalOdds: number)`**: Converts decimal odds to moneyline format.
@@ -146,6 +147,14 @@ Used for calculating the profit and total return of a bet.
 
 -   `oddsTaken`: The odds that were taken when the bet was placed. (Type: `number`)
 -   `stakedAmount`: The amount of money staked on the bet. (Type: `number`)
+
+#### `KellyBetInput`
+
+Used for calculating the profit and total return of a bet.
+
+-   `oddsTaken`: The odds that were taken when the bet was placed. (Type: `number`)
+-   `bankroll`: The total amount of money available for betting. (Type: `number`)
+-   `probability`: The bettor's estimated probability that the bet will win, expressed as a value between 0 and 1. (Type: `number`)
 
 ### BrewResult
 

@@ -90,6 +90,26 @@ class BetBrewClass {
         };
     }
 
+    public calculateKellyBet(input: KellyBetInput): string | { kellyBetAmount: number; fractionalAmount: number } {
+        this.validateNumber(input.oddsTaken, 'odds taken', true);
+        this.validateNumber(input.bankroll, 'bankroll', true);
+        this.validateNumber(input.probability, 'probability', true);
+
+        if (input.probability < 0 || input.probability > 1) {
+            throw new RangeError('Probability must be between 0 and 1.');
+        }
+
+        const kellyFraction: number = this.kellyCriterion(input.oddsTaken, input.probability);
+        const kellyBetAmount: number = input.bankroll * kellyFraction;
+
+        if (kellyBetAmount < 0) return `Not optimal to bet, change parameters. Suggested bet amount of bankroll: ${kellyBetAmount.toFixed(2)}`;
+
+        return {
+            kellyBetAmount: Number(kellyBetAmount.toFixed(2)),
+            fractionalAmount: Number(kellyFraction.toFixed(3)),
+        };
+    }
+
     public decimalToFractional(decimalOdds: number): string {
         this.validateNumber(decimalOdds, 'decimalOdds', true);
         const numerator = decimalOdds - 1;
@@ -119,26 +139,6 @@ class BetBrewClass {
         } else {
             return 1 - 100 / moneyline;
         }
-    }
-
-    public calculateKellyBet(input: KellyBetInput): string | { kellyBetAmount: number; fractionalAmount: number } {
-        this.validateNumber(input.oddsTaken, 'odds taken', true);
-        this.validateNumber(input.bankroll, 'bankroll', true);
-        this.validateNumber(input.probability, 'probability', true);
-
-        if (input.probability < 0 || input.probability > 1) {
-            throw new RangeError('Probability must be between 0 and 1.');
-        }
-
-        const kellyFraction: number = this.kellyCriterion(input.oddsTaken, input.probability);
-        const kellyBetAmount: number = input.bankroll * kellyFraction;
-
-        if (kellyBetAmount < 0) return `Not optimal to bet, change parameters. Suggested bet amount of bankroll: ${kellyBetAmount.toFixed(2)}`;
-
-        return {
-            kellyBetAmount: Number(kellyBetAmount.toFixed(2)),
-            fractionalAmount: Number(kellyFraction.toFixed(3)),
-        };
     }
 }
 
