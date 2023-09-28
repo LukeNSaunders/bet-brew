@@ -1,4 +1,4 @@
-import { EVInput, ROIInput, BookmakerMarginInput, AdjustedEVInput, AdjustedProbabilityInput, AdjustedROIInput } from './types/type.betBrew';
+import { EVInput, ROIInput, BookmakerMarginInput, AdjustedEVInput, AdjustedProbabilityInput, AdjustedROIInput, PnlInput } from './types/type.betBrew';
 
 class BetBrewClass {
     private validateNumber(input: number, name: string, shouldBePositive: boolean = false): void {
@@ -70,6 +70,19 @@ class BetBrewClass {
         return (adjustedEv / input.stakedAmount) * 100;
     }
 
+    public calculatePnL(input: PnlInput): any {
+        this.validateNumber(input.oddsTaken, 'odds');
+        this.validateNumber(input.stakedAmount, 'staked amount');
+
+        const profit = input.oddsTaken * input.stakedAmount - input.stakedAmount;
+        const totalReturn = input.oddsTaken * input.stakedAmount;
+
+        return {
+            profit: profit,
+            totalReturn: totalReturn,
+        };
+    }
+
     public decimalToFractional(decimalOdds: number): string {
         this.validateNumber(decimalOdds, 'decimalOdds', true);
         const numerator = decimalOdds - 1;
@@ -106,4 +119,4 @@ const betBrew = () => {
     return new BetBrewClass();
 };
 
-export default betBrew;
+export { betBrew };

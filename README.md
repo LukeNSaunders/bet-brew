@@ -22,7 +22,7 @@ npm install bet-brew
 Import the main class and use its methods. Below are example usages for a few methods:
 
 ```typescript
-import { betBrew } from 'betbrew';
+import { betBrew } from 'bet-brew';
 
 const brew = betBrew();
 
@@ -94,10 +94,12 @@ Core class containing methods for various betting utilities.
 -   **`calculateAdjustedProbability(input: AdjustedProbabilityInput)`**: Calculates the adjusted probability accounting for the bookmaker's margin.
 -   **`calculateAdjustedEV(input: AdjustedEVInput)`**: Calculates the adjusted Expected Value (EV) of a bet.
 -   **`calculateAdjustedROI(input: AdjustedROIInput)`**: Calculates the adjusted Return on Investment (ROI) of a bet.
+-   **`calculatePnL(input: PnLInput)`**: Calculates profit and total return of a bet.
 -   **`decimalToFractional(decimalOdds: number)`**: Converts decimal odds to fractional format.
 -   **`fractionalToDecimal(fraction: string)`**: Converts fractional odds to decimal format.
 -   **`decimalToMoneyline(decimalOdds: number)`**: Converts decimal odds to moneyline format.
 -   **`moneylineToDecimal(moneyline: number)`**: Converts moneyline odds to decimal format.
+
 
 ### Input Types
 
@@ -137,6 +139,13 @@ Used for calculating the adjusted Expected Value (EV) of a bet.
 Used for calculating the adjusted Return on Investment (ROI) of a bet.
 
 -   Inherits all fields from `AdjustedEVInput`.
+
+#### `PnLInput`
+
+Used for calculating the profit and total return of a bet.
+
+-   `oddsTaken`: The odds that were taken when the bet was placed. (Type: `number`)
+-   `stakedAmount`: The amount of money staked on the bet. (Type: `number`)
 
 ### BrewResult
 

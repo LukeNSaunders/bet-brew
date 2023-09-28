@@ -1,6 +1,6 @@
 {
     "name": "bet-brew",
-    "version": "2.1.0",
+    "version": "2.1.2",
     "description": "A betting tools package for various odds and probability calculations.",
     "main": "./dist/index.js",
     "types": "./dist/index.d.ts",

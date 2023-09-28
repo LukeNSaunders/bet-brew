@@ -12,6 +12,11 @@ interface EVInput {
     startingPrice: number;
 }
 
+interface PnlInput {
+    oddsTaken: number;
+    stakedAmount: number;
+}
+
 interface ROIInput extends EVInput {}
 
 interface BookmakerMarginInput {
@@ -26,4 +31,4 @@ interface AdjustedEVInput extends EVInput, BookmakerMarginInput {}
 
 interface AdjustedROIInput extends AdjustedEVInput {}
 
-export { BrewResult, EVInput, ROIInput, BookmakerMarginInput, AdjustedProbabilityInput, AdjustedEVInput, AdjustedROIInput };
+export { BrewResult, EVInput, ROIInput, BookmakerMarginInput, AdjustedProbabilityInput, AdjustedEVInput, AdjustedROIInput, PnlInput };
